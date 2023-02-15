@@ -27,6 +27,8 @@ const options = {
 const conn = mysql.createConnection(options)
 const sessionStore = new MySQLStore(options);
 
+const filePath = __dirname + '/views/'
+
 //Session middelware
 app.use(session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -55,7 +57,7 @@ app.get('/', isAuth, (req, res) => {
 })
 
 app.get('/login', (req, res) =>{
-    res.render('login')
+    res.sendFile(filePath+'login.html')
 })
 
 //When trying to sign in
@@ -86,7 +88,7 @@ app.post('/login', (req, res) =>{
 
 //If a site is not reconised render to the error site
 app.get('*', function(req, res){
-    res.render('error')
+    res.sendFile(filePath+'error.html')
 })
 
 app.listen(3000, () =>{
